@@ -9,10 +9,13 @@ The app now includes automatic backup and synchronization to Google Sheets. All 
 ## Features
 
 - ✅ **Automatic sync** on app open and close
+- ✅ **Cross-device sync** - your data follows you across all your devices
+- ✅ **Smart conflict resolution** - automatically merges data using timestamps
 - ✅ **Offline queue** - changes made offline will sync when you reconnect
 - ✅ **Real-time updates** - edits and deletions sync to Google Sheets
 - ✅ **Auto-create sheet** - no manual setup required
 - ✅ **Sync status indicator** - always know if your data is backed up
+- ✅ **Token auto-refresh** - stays connected without requiring re-authentication
 
 ## Prerequisites
 
@@ -33,8 +36,8 @@ The app now includes automatic backup and synchronization to Google Sheets. All 
 1. In your Google Cloud Console, make sure your project is selected
 2. Go to **APIs & Services** → **Library**
 3. Search for and enable these APIs:
-   - **Google Sheets API**
-   - **Google Drive API**
+   - **Google Sheets API** (required for storing push-up data)
+   - **Google Drive API** (required for finding and managing your spreadsheets across devices)
 
 ### Step 3: Create API Credentials
 
@@ -111,6 +114,7 @@ const GOOGLE_CONFIG = {
 
 Your Google Sheet will have the following columns:
 - **ID**: Unique identifier for each entry
+- **User ID**: Your Google account ID (for multi-user sheets)
 - **Date**: The date of the push-up session (MM/DD/YYYY)
 - **Time**: The time of the push-up session (12-hour format)
 - **Amount**: Number of push-ups completed
@@ -173,11 +177,12 @@ If you make changes while offline:
 
 You can:
 - ✅ Open and view your sheet at any time (click the link in sync settings)
-- ✅ Manually edit values in the sheet (they won't sync back to the app)
-- ✅ Share the sheet with others
+- ✅ Manually edit values in the sheet (changes won't sync back to the app)
+- ✅ Share the sheet with others (each person's data is isolated by User ID)
 - ✅ Export to CSV or Excel
 - ✅ Create charts and visualizations
-- ⚠️ Don't delete the "ID" column (it's used to match entries)
+- ✅ Filter by User ID to see only specific user's data
+- ⚠️ Don't delete the "ID" or "User ID" columns (used to match entries and users)
 - ⚠️ Don't rename the "Push-up Logs" sheet (sync will fail)
 
 ## Advanced Configuration
@@ -193,12 +198,24 @@ If you want to host this app on a web server:
 
 ### Multiple Devices
 
-You can use the same Google account to sync across multiple devices:
+The app now supports **true cross-device synchronization**:
 
-1. Set up the app with the same Google API credentials on each device
-2. Sign in with the same Google account
-3. Each device will sync to the same Google Sheet
-4. Note: The app doesn't sync FROM the sheet TO the app - it's one-way sync (app → sheet)
+1. **First device**: Sign in with your Google account
+   - The app creates a Google Sheet and uploads your data
+
+2. **Second device**: Sign in with the same Google account
+   - The app automatically finds your existing spreadsheet
+   - If you have local data, you'll be prompted to choose:
+     - **Merge**: Combine local and cloud data (recommended)
+     - **Replace**: Discard local data and restore from cloud
+   - The app downloads all your push-ups and restores your full state
+
+3. **Ongoing sync**: All devices stay synchronized
+   - New entries sync to the cloud immediately
+   - Edits and deletions are reflected across all devices
+   - Conflict resolution uses timestamps (most recent wins)
+
+**Important**: Each user (Google account) has their own isolated data. The same spreadsheet can contain data from multiple Google accounts, but each user only sees their own push-ups.
 
 ## Support
 
