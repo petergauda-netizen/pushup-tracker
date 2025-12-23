@@ -25,6 +25,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create config.js from secrets
+        run: |
+          cat > config.js << 'EOF'
+          // Google Sheets OAuth Configuration
+          // This file is auto-generated during deployment from GitHub Secrets
+          const GOOGLE_CONFIG = {
+              CLIENT_ID: '${{ secrets.GOOGLE_CLIENT_ID }}',
+              API_KEY: '${{ secrets.GOOGLE_API_KEY }}',
+              DISCOVERY_DOCS: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+              SCOPES: 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file'
+          };
+          EOF
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

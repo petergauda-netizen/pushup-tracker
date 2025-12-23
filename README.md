@@ -64,11 +64,24 @@ To enable Google Sheets sync:
    # Never commit config.js to git (it's in .gitignore)
    ```
 
-3. **For Production Deployment**:
-   - You'll need to manually upload `config.js` to your GitHub Pages deployment
-   - Or use GitHub Secrets with Actions to generate it during deployment
+3. **For Production Deployment** (GitHub Actions automatically handles this):
 
-**Important**: `config.js` contains your OAuth credentials and is excluded from git for security
+   Add your credentials as GitHub Secrets:
+
+   a. Go to your repository: `https://github.com/YOUR_USERNAME/pushup-tracker`
+
+   b. Click **Settings** → **Secrets and variables** → **Actions**
+
+   c. Click **New repository secret** and add these two secrets:
+      - Name: `GOOGLE_CLIENT_ID`
+        Value: Your Client ID (e.g., `123456789.apps.googleusercontent.com`)
+
+      - Name: `GOOGLE_API_KEY`
+        Value: Your API Key/Client Secret (e.g., `GOCSPX-...`)
+
+   d. The GitHub Actions workflow will automatically create `config.js` during deployment
+
+**Important**: `config.js` contains your OAuth credentials and is excluded from git for security. GitHub Secrets keeps them encrypted and secure.
 
 ## PWA Installation
 
