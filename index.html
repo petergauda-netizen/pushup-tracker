@@ -19,6 +19,7 @@
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://apis.google.com/js/api.js" async defer></script>
+    <script src="config.js"></script>
     <style>
         /* Mobile-First CSS - Base styles for mobile devices */
         * {
@@ -1729,13 +1730,8 @@
     </div>
 
     <script>
-        // Google Sheets Configuration
-        const GOOGLE_CONFIG = {
-            CLIENT_ID: 'YOUR_GOOGLE_CLIENT_ID_HERE', // User needs to replace this
-            API_KEY: 'YOUR_GOOGLE_API_KEY_HERE', // User needs to replace this
-            DISCOVERY_DOCS: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-            SCOPES: 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.file'
-        };
+        // Google Sheets Configuration is loaded from config.js
+        // See config.example.js for setup instructions
 
         // Service Worker Registration
         if ('serviceWorker' in navigator) {

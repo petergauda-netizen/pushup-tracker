@@ -33,3 +33,6 @@ Temporary Items
 # Logs
 *.log
 npm-debug.log*
+
+# Configuration files with secrets
+config.js

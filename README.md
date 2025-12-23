@@ -51,8 +51,24 @@ https://YOUR_USERNAME.github.io/pushup-tracker/
 
 To enable Google Sheets sync:
 
-1. Follow the setup instructions in [GOOGLE_SHEETS_SETUP.md](GOOGLE_SHEETS_SETUP.md)
-2. Update the Google Sheets credentials in the app
+1. **Setup OAuth Credentials**:
+   - Follow the detailed German guide: [GOOGLE_SHEETS_SETUP_DE.md](GOOGLE_SHEETS_SETUP_DE.md)
+   - Or visit [Google Cloud Console](https://console.cloud.google.com) to create OAuth credentials
+
+2. **Configure Locally**:
+   ```bash
+   # Copy the example config file
+   cp config.example.js config.js
+
+   # Edit config.js and add your credentials
+   # Never commit config.js to git (it's in .gitignore)
+   ```
+
+3. **For Production Deployment**:
+   - You'll need to manually upload `config.js` to your GitHub Pages deployment
+   - Or use GitHub Secrets with Actions to generate it during deployment
+
+**Important**: `config.js` contains your OAuth credentials and is excluded from git for security
 
 ## PWA Installation
 
