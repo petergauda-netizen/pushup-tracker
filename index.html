@@ -312,53 +312,74 @@
         .quick-add-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .btn-quick-add {
-            padding: 16px;
-            border-radius: 12px;
-            border: 2px solid #667eea;
-            background: white;
-            color: #667eea;
-            font-weight: 700;
-            font-size: 1.3em;
+            padding: 20px;
+            border-radius: 16px;
+            border: 3px solid #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 800;
+            font-size: 1.6em;
             cursor: pointer;
             transition: all 0.2s ease;
-            min-height: 56px;
+            min-height: 72px;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-quick-add::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
 
         .btn-quick-add:active {
-            transform: scale(0.96);
-            background: #667eea;
-            color: white;
+            transform: scale(0.94);
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-quick-add:active::before {
+            opacity: 1;
         }
 
         /* Desktop enhancements for quick-add */
         @media (min-width: 769px) {
             .quick-add-grid {
-                gap: 10px;
-                margin-bottom: 20px;
+                gap: 15px;
+                margin-bottom: 24px;
             }
 
             .btn-quick-add {
-                padding: 20px;
-                border-radius: 15px;
-                font-size: 1.5em;
-                min-height: auto;
+                padding: 24px;
+                border-radius: 18px;
+                font-size: 1.8em;
+                min-height: 80px;
             }
 
             .btn-quick-add:hover {
-                background: #667eea;
-                color: white;
-                transform: scale(1.05);
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+            }
+
+            .btn-quick-add:hover::before {
+                opacity: 1;
             }
 
             .btn-quick-add:active {
-                transform: scale(0.95);
+                transform: scale(0.96);
             }
         }
 
@@ -434,6 +455,175 @@
             .today-stat-label {
                 font-size: 1em;
                 opacity: 0.9;
+            }
+        }
+
+        /* Hero section - combines today's total with quick progress overview */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .hero-today {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            padding: 24px 20px;
+            border-radius: 16px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(17, 153, 142, 0.4);
+        }
+
+        .hero-today-value {
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 6px;
+            line-height: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-today-label {
+            font-size: 1.1em;
+            opacity: 0.95;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-progress {
+            background: white;
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .hero-progress-bar {
+            background: #e9ecef;
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .hero-progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            position: relative;
+            min-width: 3%;
+        }
+
+        .hero-progress-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85em;
+        }
+
+        .hero-progress-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .hero-progress-value {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        /* Desktop enhancements for hero */
+        @media (min-width: 769px) {
+            .hero-section {
+                grid-template-columns: 2fr 3fr;
+                gap: 16px;
+                margin-bottom: 24px;
+            }
+
+            .hero-today {
+                padding: 28px 24px;
+            }
+
+            .hero-today-value {
+                font-size: 4em;
+            }
+
+            .hero-progress {
+                padding: 20px;
+            }
+
+            .hero-progress-bar {
+                height: 14px;
+                margin-bottom: 14px;
+            }
+
+            .hero-progress-stats {
+                font-size: 0.9em;
+            }
+        }
+
+        /* Collapsible section styles */
+        .collapsible-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .collapsible-header h2 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        .collapsible-toggle {
+            font-size: 1.3em;
+            color: #667eea;
+            transition: transform 0.3s ease;
+            font-weight: 600;
+        }
+
+        .collapsible-toggle.expanded {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .collapsible-content.expanded {
+            max-height: 5000px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .card.secondary {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .card.secondary h2 {
+            color: #6c757d;
+            font-size: 1.1em;
+        }
+
+        @media (min-width: 769px) {
+            .collapsible-header h2 {
+                font-size: 1.4em;
+            }
+
+            .card.secondary {
+                background: white;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             }
         }
 
@@ -547,6 +737,29 @@
             outline: none;
             border-color: #5568d3;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .history-item-edit-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .edit-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .edit-form-group label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .edit-form-group .edit-input {
+            width: 100%;
         }
 
         .empty-state {
@@ -1340,6 +1553,187 @@
             font-size: 0.9em;
         }
 
+        /* User Account View Styles */
+        .user-account-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            margin-bottom: 12px;
+        }
+
+        @media (min-width: 769px) {
+            .user-account-card {
+                border-radius: 20px;
+                padding: 30px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .user-account-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .user-account-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .user-account-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-account-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-account-name {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .user-account-email {
+            font-size: 0.9em;
+            color: #6c757d;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .sync-mode-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 0.95em;
+        }
+
+        .sync-mode-indicator.google-sync {
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);
+            border: 2px solid #11998e;
+        }
+
+        .sync-mode-indicator.local-only {
+            background: linear-gradient(135deg, rgba(255, 142, 83, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            border: 2px solid #ff8e53;
+        }
+
+        .sync-mode-icon {
+            font-size: 1.3em;
+        }
+
+        .sync-mode-text {
+            flex: 1;
+        }
+
+        .sync-mode-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 2px;
+        }
+
+        .sync-mode-subtitle {
+            font-size: 0.85em;
+            color: #6c757d;
+        }
+
+        .user-account-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        @media (min-width: 769px) {
+            .user-account-actions {
+                flex-direction: row;
+            }
+        }
+
+        .btn-account-action {
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-account-action:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-account-action.danger {
+            border-color: #f5576c;
+            color: #f5576c;
+        }
+
+        .btn-account-action.danger:hover {
+            background: #f5576c;
+            color: white;
+        }
+
+        .btn-account-action.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .btn-account-action.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .local-mode-message {
+            background: linear-gradient(135deg, rgba(255, 142, 83, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            border: 2px solid #ff8e53;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .local-mode-message-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .local-mode-message-text {
+            font-size: 0.9em;
+            color: #6c757d;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
         .btn-disconnect {
             padding: 8px 16px;
             border-radius: 8px;
@@ -1414,51 +1808,70 @@
             ✅ Settings saved successfully!
         </div>
 
-        <!-- Google Sheets Sync Status -->
-        <div id="syncStatusContainer" class="hidden">
-            <div id="syncStatus" class="sync-status">
-                <div class="sync-status-info">
-                    <div class="sync-status-icon" id="syncStatusIcon">☁️</div>
-                    <div class="sync-status-text">
-                        <div class="sync-status-main" id="syncStatusMain">Not connected</div>
-                        <div class="sync-status-sub" id="syncStatusSub">Connect to Google Sheets to back up your data</div>
+        <!-- User Account View -->
+        <div id="userAccountContainer" class="hidden">
+            <!-- Logged In View -->
+            <div id="loggedInView" class="user-account-card" style="display: none;">
+                <div class="user-account-header">
+                    <div class="user-account-avatar" id="userAvatar">
+                        👤
+                    </div>
+                    <div class="user-account-info">
+                        <div class="user-account-name" id="userName">User Name</div>
+                        <div class="user-account-email" id="userEmail">user@example.com</div>
                     </div>
                 </div>
-                <div class="sync-status-actions" id="syncStatusActions">
-                    <button class="btn-google-signin" id="googleSignInBtn" style="display: none;">
-                        <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+                <div class="sync-mode-indicator google-sync">
+                    <div class="sync-mode-icon">✅</div>
+                    <div class="sync-mode-text">
+                        <div class="sync-mode-title">Google Sync Active</div>
+                        <div class="sync-mode-subtitle" id="syncModeSubtitle">Your data is backed up to Google Sheets</div>
+                    </div>
+                </div>
+
+                <div class="user-account-actions">
+                    <button class="btn-account-action" id="viewSheetBtn">
+                        <span>📊 View Spreadsheet</span>
+                    </button>
+                    <button class="btn-account-action" id="manualSyncBtnNew">
+                        <span>🔄 Sync Now</span>
+                    </button>
+                    <button class="btn-account-action danger" id="signOutBtn">
+                        <span>🚪 Sign Out</span>
+                    </button>
+                </div>
+
+                <!-- Sync Details (collapsible) -->
+                <div id="syncDetails" style="margin-top: 16px; padding-top: 16px; border-top: 2px solid #f0f0f0; display: none;">
+                    <div style="font-size: 0.9em; color: #6c757d; margin-bottom: 8px;">
+                        <strong>Last synced:</strong> <span id="lastSyncedNew">Never</span>
+                    </div>
+                    <div style="font-size: 0.9em; color: #6c757d;">
+                        <strong>Pending changes:</strong> <span id="pendingChangesNew">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Local Only View -->
+            <div id="localOnlyView" class="user-account-card" style="display: none;">
+                <div class="local-mode-message">
+                    <div class="local-mode-message-title">
+                        <span>📱</span>
+                        <span>Local-Only Mode</span>
+                    </div>
+                    <div class="local-mode-message-text">
+                        Your pushup data is currently saved only on this device. Sign in with Google to back up your data and sync across devices.
+                    </div>
+                    <button class="btn-account-action primary" id="googleSignInBtnNew">
+                        <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 18px; height: 18px; display: inline-block; vertical-align: middle; margin-right: 8px;">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                         </svg>
-                        Sign in with Google
+                        <span style="vertical-align: middle;">Sign in with Google</span>
                     </button>
-                    <button class="btn-sync" id="manualSyncBtn" style="display: none;">Sync Now</button>
-                </div>
-            </div>
-
-            <!-- Sync Settings -->
-            <div id="syncSettingsCard" class="sync-settings-card" style="display: none;">
-                <div class="sync-settings-title">Google Sheets Connection</div>
-                <div class="sync-settings-option">
-                    <span class="sync-settings-label">Connected Account</span>
-                    <span class="sync-settings-value" id="connectedAccount">-</span>
-                </div>
-                <div class="sync-settings-option">
-                    <span class="sync-settings-label">Sheet Name</span>
-                    <span class="sync-settings-value" id="sheetName">-</span>
-                </div>
-                <div class="sync-settings-option">
-                    <span class="sync-settings-label">Last Synced</span>
-                    <span class="sync-settings-value" id="lastSynced">Never</span>
-                </div>
-                <div class="sync-settings-option">
-                    <span class="sync-settings-label">Pending Changes</span>
-                    <span class="sync-settings-value" id="pendingChanges">0</span>
-                </div>
-                <div class="sync-settings-option" style="border-bottom: none;">
-                    <button class="btn-disconnect" id="disconnectBtn">Disconnect Google Sheets</button>
                 </div>
             </div>
         </div>
@@ -1500,19 +1913,36 @@
             </form>
         </div>
 
-        <!-- Log Push-ups Card - MOVED TO TOP FOR MOBILE (Hidden initially if no settings) -->
+        <!-- Log Push-ups Card - PRIORITY LAYOUT (Hidden initially if no settings) -->
         <div id="logCard" class="card hidden">
             <h2><span>💪</span> Log Push-ups</h2>
 
-            <!-- Today's Total -->
-            <div class="today-stat">
-                <div class="today-stat-value" id="todayTotal">0</div>
-                <div class="today-stat-label">Today's Total</div>
+            <!-- Hero Section: Today's Total + Progress Overview -->
+            <div class="hero-section">
+                <div class="hero-today">
+                    <div class="hero-today-value" id="todayTotal">0</div>
+                    <div class="hero-today-label">Today's Total</div>
+                </div>
+                <div class="hero-progress">
+                    <div class="hero-progress-bar">
+                        <div class="hero-progress-fill" id="heroProgressFill" style="width: 0%;"></div>
+                    </div>
+                    <div class="hero-progress-stats">
+                        <div>
+                            <span class="hero-progress-label">Progress:</span>
+                            <span class="hero-progress-value" id="heroProgressPercent">0%</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="hero-progress-value" id="heroProgressCompleted">0</span>
+                            <span class="hero-progress-label"> / </span>
+                            <span class="hero-progress-label" id="heroProgressTarget">0</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Quick Add Buttons -->
+            <!-- Quick Add Buttons - PRIMARY ACTION -->
             <div class="form-group">
-                <label>Quick Add</label>
                 <div class="quick-add-grid">
                     <button class="btn-quick-add" data-value="5">5</button>
                     <button class="btn-quick-add" data-value="10">10</button>
@@ -1539,10 +1969,14 @@
         </div>
 
         <!-- At a Glance Card - COMBINED dashboard + progress + gamification (Hidden initially if no settings) -->
-        <div id="dashboardCard" class="card hidden">
-            <h2><span>📊</span> At a Glance</h2>
+        <div id="dashboardCard" class="card secondary hidden">
+            <div class="collapsible-header" onclick="toggleCollapsible('dashboardContent')">
+                <h2><span>📊</span> At a Glance</h2>
+                <span class="collapsible-toggle">▼</span>
+            </div>
 
-            <!-- Goal Info Compact -->
+            <div id="dashboardContent" class="collapsible-content">
+                <!-- Goal Info Compact -->
             <div class="info-box" id="goalInfo" style="margin-bottom: 16px;">
                 <div class="info-item">
                     <span class="info-label">Target</span>
@@ -1612,6 +2046,7 @@
             <div id="badgesContainer" class="badges-container">
                 <!-- Badges will be rendered here -->
             </div>
+            </div>
         </div>
 
         <!-- Hidden cards for backwards compatibility - keep IDs for JS -->
@@ -1624,9 +2059,13 @@
         </div>
 
         <!-- Statistics Card (Hidden initially if no settings) -->
-        <div id="statisticsCard" class="card hidden">
-            <h2><span>📈</span> Statistics & Analytics</h2>
+        <div id="statisticsCard" class="card secondary hidden">
+            <div class="collapsible-header" onclick="toggleCollapsible('statisticsContent')">
+                <h2><span>📈</span> Statistics & Analytics</h2>
+                <span class="collapsible-toggle">▼</span>
+            </div>
 
+            <div id="statisticsContent" class="collapsible-content">
             <!-- Tabs -->
             <div class="stats-tabs">
                 <button class="stats-tab active" data-tab="overview">Overview</button>
@@ -1710,13 +2149,20 @@
                 <div class="chart-title" style="margin-top: 30px;">Days to Improve</div>
                 <div id="worstDaysList" class="day-list"></div>
             </div>
+            </div>
         </div>
 
         <!-- Log History Card (Hidden initially if no settings) -->
-        <div id="historyCard" class="card hidden">
-            <h2><span>📜</span> Log History</h2>
-            <div id="historyList" class="history-list">
-                <!-- History items will be inserted here -->
+        <div id="historyCard" class="card secondary hidden">
+            <div class="collapsible-header" onclick="toggleCollapsible('historyContent')">
+                <h2><span>📜</span> Log History</h2>
+                <span class="collapsible-toggle">▼</span>
+            </div>
+
+            <div id="historyContent" class="collapsible-content">
+                <div id="historyList" class="history-list">
+                    <!-- History items will be inserted here -->
+                </div>
             </div>
         </div>
 
@@ -1732,6 +2178,36 @@
     <script>
         // Google Sheets Configuration is loaded from config.js
         // See config.example.js for setup instructions
+
+        // Collapsible Section Toggle Function
+        function toggleCollapsible(contentId) {
+            const content = document.getElementById(contentId);
+            const header = content.previousElementSibling;
+            const toggle = header.querySelector('.collapsible-toggle');
+
+            content.classList.toggle('expanded');
+            toggle.classList.toggle('expanded');
+        }
+
+        // Update Hero Progress Bar
+        function updateHeroProgress() {
+            const settings = SettingsManager.load();
+            if (!settings.target) return;
+
+            const totalCompleted = LogManager.getTotalCompleted();
+            const target = settings.target;
+            const progressPercent = Math.min(Math.round((totalCompleted / target) * 100), 100);
+
+            const heroProgressFill = document.getElementById('heroProgressFill');
+            const heroProgressPercent = document.getElementById('heroProgressPercent');
+            const heroProgressCompleted = document.getElementById('heroProgressCompleted');
+            const heroProgressTarget = document.getElementById('heroProgressTarget');
+
+            if (heroProgressFill) heroProgressFill.style.width = progressPercent + '%';
+            if (heroProgressPercent) heroProgressPercent.textContent = progressPercent + '%';
+            if (heroProgressCompleted) heroProgressCompleted.textContent = totalCompleted.toLocaleString();
+            if (heroProgressTarget) heroProgressTarget.textContent = target.toLocaleString();
+        }
 
         // Service Worker Registration
         if ('serviceWorker' in navigator) {
@@ -1864,18 +2340,27 @@
                 return logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
             },
 
-            editLog(id, newAmount) {
+            editLog(id, newAmount, newTimestamp = null) {
                 const logs = this.load();
                 const logIndex = logs.findIndex(log => log.id === id);
                 if (logIndex !== -1) {
+                    const oldTimestamp = logs[logIndex].timestamp;
+
                     logs[logIndex].amount = parseInt(newAmount);
                     logs[logIndex].edited = true;
                     logs[logIndex].editedAt = new Date().toISOString();
+
+                    // Update timestamp if provided
+                    if (newTimestamp) {
+                        logs[logIndex].timestamp = newTimestamp;
+                    }
+
                     this.save(logs);
 
                     // Sync to Google Sheets
                     if (typeof GoogleSheetsSync !== 'undefined') {
-                        GoogleSheetsSync.syncEdit(id, parseInt(newAmount));
+                        const timestampChanged = newTimestamp && newTimestamp !== oldTimestamp;
+                        GoogleSheetsSync.syncEdit(id, parseInt(newAmount), timestampChanged ? newTimestamp : null);
                     }
 
                     return true;
@@ -2214,10 +2699,12 @@
                         this.updateSyncStatus('synced', `Connected as ${this.userEmail}`, 'Ready to sync');
                     }
                     this.updateSyncUI();
+                    this.updateUserAccountView(); // AC-AUTH-2.5: Update view on auth state change
                 } else {
                     this.isSignedIn = false;
                     this.updateSyncStatus('offline', 'Not connected', 'Connect to Google Sheets to back up your data');
                     this.updateSyncUI();
+                    this.updateUserAccountView(); // AC-AUTH-2.5: Update view on auth state change
                 }
             },
 
@@ -2287,6 +2774,7 @@
 
                             this.isSignedIn = true;
                             this.updateSyncUI();
+                            this.updateUserAccountView(); // AC-AUTH-2.5: Update view on auth state change
 
                             showSuccessMessage('✅ Successfully connected to Google Sheets!');
                         },
@@ -2328,6 +2816,7 @@
                 localStorage.removeItem(this.STORAGE_KEY);
                 this.updateSyncStatus('offline', 'Not connected', 'Connect to Google Sheets to back up your data');
                 this.updateSyncUI();
+                this.updateUserAccountView(); // AC-AUTH-2.5: Update view on auth state change
                 showSuccessMessage('✅ Disconnected from Google Sheets');
             },
 
@@ -2901,12 +3390,13 @@
             },
 
             // Queue operations for offline sync
-            queueOperation(operation, logId, data = null) {
+            queueOperation(operation, logId, data = null, extraData = null) {
                 const queue = this.getQueue();
                 queue.push({
                     operation,
                     logId,
                     data,
+                    extraData,
                     timestamp: new Date().toISOString()
                 });
                 this.saveQueue(queue);
@@ -2956,7 +3446,7 @@
                                 console.log(`✓ Skipped add operation (log no longer exists): ${item.logId}`);
                             }
                         } else if (item.operation === 'edit') {
-                            await this.updateLogInSheet(item.logId, item.data);
+                            await this.updateLogInSheet(item.logId, item.data, item.extraData || null);
                             successfulItems.push(item);
                             console.log(`✓ Synced edit operation for log ${item.logId}`);
                         } else if (item.operation === 'delete') {
@@ -2993,14 +3483,33 @@
             },
 
             // Update a log entry in the sheet
-            async updateLogInSheet(logId, newAmount) {
+            async updateLogInSheet(logId, newAmount, newTimestamp = null) {
                 try {
                     const rows = await this.getAllRows();
                     const rowIndex = rows.findIndex(row => row[0] === logId.toString());
 
                     if (rowIndex !== -1) {
                         const actualRow = rowIndex + 2; // +1 for header, +1 for 0-index
-                        await this.updateSheet(`Push-up Logs!D${actualRow}`, [[newAmount.toString()]]);
+
+                        if (newTimestamp) {
+                            // Update amount, date, and time columns
+                            const timestamp = new Date(newTimestamp);
+                            const dateStr = timestamp.toLocaleDateString('en-US', { timeZone: 'UTC' });
+                            const timeStr = timestamp.toLocaleTimeString('en-US', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: true,
+                                timeZone: 'UTC'
+                            });
+
+                            // Update columns B (Date), C (Time), and D (Amount)
+                            await this.updateSheet(`Push-up Logs!B${actualRow}:D${actualRow}`, [
+                                [dateStr, timeStr, newAmount.toString()]
+                            ]);
+                        } else {
+                            // Update only amount column (D)
+                            await this.updateSheet(`Push-up Logs!D${actualRow}`, [[newAmount.toString()]]);
+                        }
                     }
                 } catch (error) {
                     console.error('Failed to update log in sheet:', error);
@@ -3070,28 +3579,28 @@
                 }
             },
 
-            async syncEdit(logId, newAmount) {
+            async syncEdit(logId, newAmount, newTimestamp = null) {
                 // Queue if not signed in or offline
                 if (!this.isSignedIn) {
-                    this.queueOperation('edit', logId, newAmount);
+                    this.queueOperation('edit', logId, newAmount, newTimestamp);
                     return;
                 }
 
                 if (!navigator.onLine) {
                     console.log('Offline: Queuing edit operation');
-                    this.queueOperation('edit', logId, newAmount);
+                    this.queueOperation('edit', logId, newAmount, newTimestamp);
                     this.updatePendingCount();
                     return;
                 }
 
                 try {
                     await this.ensureValidToken();
-                    await this.updateLogInSheet(logId, newAmount);
+                    await this.updateLogInSheet(logId, newAmount, newTimestamp);
                     this.updateLastSyncTime();
                     console.log('Successfully synced edit');
                 } catch (error) {
                     console.error('Failed to sync edit:', error);
-                    this.queueOperation('edit', logId, newAmount);
+                    this.queueOperation('edit', logId, newAmount, newTimestamp);
                     this.updatePendingCount();
                 }
             },
@@ -3129,6 +3638,7 @@
                     settings.lastSynced = new Date().toISOString();
                     this.saveSettings(settings);
                     this.updateSyncUI();
+                    this.updateUserAccountView(); // AC-AUTH-2.5: Update view on sync
                 }
             },
 
@@ -3201,6 +3711,8 @@
             updatePendingCount() {
                 const queue = this.getQueue();
                 const pendingEl = document.getElementById('pendingChanges');
+                const pendingElNew = document.getElementById('pendingChangesNew');
+
                 if (pendingEl) {
                     pendingEl.textContent = queue.length;
                     if (queue.length > 0) {
@@ -3210,6 +3722,87 @@
                         pendingEl.style.color = '';
                         pendingEl.style.fontWeight = '';
                     }
+                }
+
+                if (pendingElNew) {
+                    pendingElNew.textContent = queue.length;
+                    if (queue.length > 0) {
+                        pendingElNew.style.color = '#f5576c';
+                        pendingElNew.style.fontWeight = '700';
+                    } else {
+                        pendingElNew.style.color = '';
+                        pendingElNew.style.fontWeight = '';
+                    }
+                }
+            },
+
+            // Update User Account View (AC-AUTH-2.1 to AC-AUTH-2.6)
+            updateUserAccountView() {
+                const userAccountContainer = document.getElementById('userAccountContainer');
+                const loggedInView = document.getElementById('loggedInView');
+                const localOnlyView = document.getElementById('localOnlyView');
+                const userAvatar = document.getElementById('userAvatar');
+                const userName = document.getElementById('userName');
+                const userEmail = document.getElementById('userEmail');
+                const syncModeSubtitle = document.getElementById('syncModeSubtitle');
+                const lastSyncedNew = document.getElementById('lastSyncedNew');
+                const viewSheetBtn = document.getElementById('viewSheetBtn');
+
+                // Show the container
+                userAccountContainer.classList.remove('hidden');
+
+                if (this.isSignedIn) {
+                    // AC-AUTH-2.1: Display user's Google account (name or email)
+                    // AC-AUTH-2.2: Indicate Google sync is active
+                    loggedInView.style.display = 'block';
+                    localOnlyView.style.display = 'none';
+
+                    // Update user info
+                    if (this.userName) {
+                        userName.textContent = this.userName;
+                    } else if (this.userEmail) {
+                        userName.textContent = this.userEmail.split('@')[0];
+                    }
+
+                    if (this.userEmail) {
+                        userEmail.textContent = this.userEmail;
+                    }
+
+                    // Update avatar
+                    if (this.userPicture) {
+                        userAvatar.innerHTML = `<img src="${this.userPicture}" alt="Profile" />`;
+                    } else if (this.userName) {
+                        userAvatar.textContent = this.userName.charAt(0).toUpperCase();
+                    } else {
+                        userAvatar.textContent = '👤';
+                    }
+
+                    // Update sync status
+                    const settings = this.getSettings();
+                    if (settings && settings.lastSynced) {
+                        const syncDate = new Date(settings.lastSynced);
+                        lastSyncedNew.textContent = this.formatRelativeTime(syncDate);
+                        syncModeSubtitle.textContent = `Last synced ${this.formatRelativeTime(syncDate)}`;
+                    } else {
+                        lastSyncedNew.textContent = 'Never';
+                        syncModeSubtitle.textContent = 'Your data is backed up to Google Sheets';
+                    }
+
+                    // Update View Spreadsheet button
+                    if (this.spreadsheetId) {
+                        viewSheetBtn.style.display = 'block';
+                        viewSheetBtn.onclick = () => {
+                            window.open(`https://docs.google.com/spreadsheets/d/${this.spreadsheetId}`, '_blank');
+                        };
+                    } else {
+                        viewSheetBtn.style.display = 'none';
+                    }
+
+                    this.updatePendingCount();
+                } else {
+                    // AC-AUTH-2.4: Indicate local-only mode when signed out
+                    loggedInView.style.display = 'none';
+                    localOnlyView.style.display = 'block';
                 }
             },
 
@@ -3651,8 +4244,8 @@
             const settingsEditCard = document.getElementById('settingsEditCard');
 
             if (settings) {
-                // Show sync status container
-                document.getElementById('syncStatusContainer').classList.remove('hidden');
+                // AC-AUTH-2.6: Show user account container
+                document.getElementById('userAccountContainer')?.classList.remove('hidden');
                 // Sync on app open
                 if (GoogleSheetsSync.isSignedIn) {
                     await GoogleSheetsSync.performFullSync();
@@ -3809,6 +4402,9 @@
             totalCompleted.textContent = completed.toLocaleString();
             totalRemaining.textContent = remaining.toLocaleString();
 
+            // Update hero progress bar
+            updateHeroProgress();
+
             // Calculate projected completion date
             const avgDaily = LogManager.getAverageDailyPushups();
 
@@ -3939,35 +4535,91 @@
         // Edit log entry
         function editLogEntry(id) {
             const historyItem = document.querySelector(`[data-id="${id}"]`);
-            const amountElement = historyItem.querySelector('.history-item-amount');
-            const actionsElement = historyItem.querySelector('.history-item-actions');
-            const currentAmount = amountElement.dataset.amount;
+            const log = LogManager.getAllLogs().find(l => l.id === id);
 
-            // Replace amount display with input
-            amountElement.innerHTML = `<input type="number" class="edit-input" value="${currentAmount}" min="1" step="1" id="editInput${id}">`;
+            if (!log) return;
 
-            // Replace action buttons
-            actionsElement.innerHTML = `
-                <button class="btn-icon btn-save" onclick="saveLogEntry(${id})">Save</button>
-                <button class="btn-icon btn-cancel" onclick="cancelEditLogEntry(${id})">Cancel</button>
+            // Get current values
+            const currentAmount = log.amount;
+            const currentDate = new Date(log.timestamp);
+            const dateString = currentDate.toISOString().split('T')[0]; // YYYY-MM-DD
+            const timeString = currentDate.toTimeString().slice(0, 5); // HH:MM
+
+            // Replace entire history item with edit form
+            historyItem.innerHTML = `
+                <div class="history-item-edit-form">
+                    <div class="edit-form-group">
+                        <label for="editAmount${id}">Push-ups:</label>
+                        <input type="number" class="edit-input" value="${currentAmount}" min="1" step="1" id="editAmount${id}">
+                    </div>
+                    <div class="edit-form-group">
+                        <label for="editDate${id}">Date:</label>
+                        <input type="date" class="edit-input" value="${dateString}" id="editDate${id}">
+                    </div>
+                    <div class="edit-form-group">
+                        <label for="editTime${id}">Time:</label>
+                        <input type="time" class="edit-input" value="${timeString}" id="editTime${id}">
+                    </div>
+                    <div class="history-item-actions">
+                        <button class="btn-icon btn-save" onclick="saveLogEntry(${id})">Save</button>
+                        <button class="btn-icon btn-cancel" onclick="cancelEditLogEntry(${id})">Cancel</button>
+                    </div>
+                </div>
             `;
 
-            // Focus the input
-            document.getElementById(`editInput${id}`).focus();
-            document.getElementById(`editInput${id}`).select();
+            // Focus the amount input
+            document.getElementById(`editAmount${id}`).focus();
+            document.getElementById(`editAmount${id}`).select();
         }
 
         // Save edited log entry
         function saveLogEntry(id) {
-            const input = document.getElementById(`editInput${id}`);
-            const newAmount = input.value;
+            const amountInput = document.getElementById(`editAmount${id}`);
+            const dateInput = document.getElementById(`editDate${id}`);
+            const timeInput = document.getElementById(`editTime${id}`);
 
+            const newAmount = amountInput.value;
+            const newDate = dateInput.value;
+            const newTime = timeInput.value;
+
+            // Validate amount
             if (!validateLogAmount(newAmount)) {
-                input.style.borderColor = '#f5576c';
+                amountInput.style.borderColor = '#f5576c';
                 return;
             }
 
-            if (LogManager.editLog(id, newAmount)) {
+            // Validate date
+            if (!newDate) {
+                dateInput.style.borderColor = '#f5576c';
+                return;
+            }
+
+            // Validate time
+            if (!newTime) {
+                timeInput.style.borderColor = '#f5576c';
+                return;
+            }
+
+            // Construct new timestamp
+            const newTimestamp = new Date(`${newDate}T${newTime}`);
+
+            // Validate that the date is valid
+            if (isNaN(newTimestamp.getTime())) {
+                dateInput.style.borderColor = '#f5576c';
+                timeInput.style.borderColor = '#f5576c';
+                return;
+            }
+
+            // Validate that the date is not in the future
+            if (newTimestamp > new Date()) {
+                dateInput.style.borderColor = '#f5576c';
+                timeInput.style.borderColor = '#f5576c';
+                showSuccessMessage('❌ Cannot set a date/time in the future!');
+                return;
+            }
+
+            // Update the log entry
+            if (LogManager.editLog(id, parseInt(newAmount), newTimestamp.toISOString())) {
                 updateTodayTotal();
                 updateProgressTracking();
                 updateGamification();
@@ -4130,19 +4782,36 @@
         });
 
         // Google Sheets event handlers
-        document.getElementById('googleSignInBtn').addEventListener('click', () => {
+        document.getElementById('googleSignInBtn')?.addEventListener('click', () => {
             GoogleSheetsSync.signIn();
         });
 
-        document.getElementById('manualSyncBtn').addEventListener('click', async () => {
+        document.getElementById('manualSyncBtn')?.addEventListener('click', async () => {
             if (!GoogleSheetsSync.isSyncing) {
                 await GoogleSheetsSync.performFullSync();
             }
         });
 
-        document.getElementById('disconnectBtn').addEventListener('click', () => {
+        document.getElementById('disconnectBtn')?.addEventListener('click', () => {
             if (confirm('Are you sure you want to disconnect from Google Sheets? Your local data will remain safe.')) {
                 GoogleSheetsSync.signOut();
+            }
+        });
+
+        // User Account View event handlers (AC-AUTH-2.3: Account-related actions)
+        document.getElementById('googleSignInBtnNew')?.addEventListener('click', () => {
+            GoogleSheetsSync.signIn();
+        });
+
+        document.getElementById('signOutBtn')?.addEventListener('click', () => {
+            if (confirm('Are you sure you want to sign out? Your local data will remain safe, but you won\'t sync to Google Sheets until you sign in again.')) {
+                GoogleSheetsSync.signOut();
+            }
+        });
+
+        document.getElementById('manualSyncBtnNew')?.addEventListener('click', async () => {
+            if (!GoogleSheetsSync.isSyncing) {
+                await GoogleSheetsSync.performFullSync();
             }
         });
 
