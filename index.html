@@ -3331,17 +3331,45 @@
                 }
             },
 
-            // Perform full sync (upload all local data)
+            // Perform full sync (bidirectional: download from cloud, then upload local changes)
             async performFullSync() {
                 if (!this.isSignedIn || !this.spreadsheetId) {
                     return;
                 }
 
                 this.isSyncing = true;
-                this.updateSyncStatus('syncing', 'Syncing...', 'Uploading all entries');
+                this.updateSyncStatus('syncing', 'Syncing...', 'Syncing data with Google Sheets');
 
                 try {
                     await this.ensureValidToken();
+
+                    // Step 1: Download data from Google Sheets and merge with local
+                    const existingRows = await this.getAllRows();
+
+                    if (existingRows && existingRows.length > 0) {
+                        // Convert cloud rows to log entries, filtering by user ID
+                        const cloudLogs = existingRows
+                            .filter(row => row[1] === this.userId)
+                            .map(row => {
+                                const timestamp = new Date(`${row[2]} ${row[3]}`).toISOString();
+                                return {
+                                    id: parseInt(row[0]),
+                                    amount: parseInt(row[4]),
+                                    timestamp: timestamp
+                                };
+                            });
+
+                        // Get local data
+                        const localLogs = LogManager.getAllLogs();
+
+                        // Merge cloud and local data
+                        const mergedLogs = this.mergeWithConflictResolution(localLogs, cloudLogs);
+
+                        // Update local storage with merged data
+                        LogManager.save(mergedLogs);
+                    }
+
+                    // Step 2: Upload any new local entries to Google Sheets
                     const logs = LogManager.getAllLogs();
 
                     if (logs.length === 0) {
@@ -3351,11 +3379,11 @@
                         return;
                     }
 
-                    // Get existing data from sheet
-                    const existingRows = await this.getAllRows();
-                    const existingIds = new Set(existingRows.map(row => row[0]));
+                    // Get fresh sheet data after merge
+                    const freshRows = await this.getAllRows();
+                    const existingIds = new Set(freshRows.map(row => row[0]));
 
-                    // Prepare rows to add (only new entries)
+                    // Prepare rows to add (only new entries not in cloud)
                     const rowsToAdd = logs
                         .filter(log => !existingIds.has(log.id.toString()))
                         .map(log => this.logToRow(log));
