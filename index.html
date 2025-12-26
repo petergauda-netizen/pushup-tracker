@@ -2680,8 +2680,11 @@
 
             // Check if user is signed in
             checkSignInStatus() {
+                console.log('[Auth] Checking sign-in status...');
                 const settings = this.getSettings();
+                console.log('[Auth] Settings loaded:', !!settings);
                 if (settings && settings.accessToken) {
+                    console.log('[Auth] Access token found, user is signed in');
                     this.accessToken = settings.accessToken;
                     this.tokenExpiresAt = settings.tokenExpiresAt;
                     this.spreadsheetId = settings.spreadsheetId;
@@ -2701,6 +2704,7 @@
                     this.updateSyncUI();
                     this.updateUserAccountView(); // AC-AUTH-2.5: Update view on auth state change
                 } else {
+                    console.log('[Auth] No access token found, user is NOT signed in');
                     this.isSignedIn = false;
                     this.updateSyncStatus('offline', 'Not connected', 'Connect to Google Sheets to back up your data');
                     this.updateSyncUI();
@@ -3800,6 +3804,7 @@
 
             // Update User Account View (AC-AUTH-2.1 to AC-AUTH-2.6)
             updateUserAccountView() {
+                console.log('[UI] Updating user account view, isSignedIn:', this.isSignedIn);
                 const userAccountContainer = document.getElementById('userAccountContainer');
                 const loggedInView = document.getElementById('loggedInView');
                 const localOnlyView = document.getElementById('localOnlyView');
@@ -3810,10 +3815,20 @@
                 const lastSyncedNew = document.getElementById('lastSyncedNew');
                 const viewSheetBtn = document.getElementById('viewSheetBtn');
 
+                console.log('[UI] Elements found:', {
+                    userAccountContainer: !!userAccountContainer,
+                    loggedInView: !!loggedInView,
+                    localOnlyView: !!localOnlyView
+                });
+
                 // Show the container
-                userAccountContainer.classList.remove('hidden');
+                if (userAccountContainer) {
+                    userAccountContainer.classList.remove('hidden');
+                    console.log('[UI] User account container shown');
+                }
 
                 if (this.isSignedIn) {
+                    console.log('[UI] Showing logged in view');
                     // AC-AUTH-2.1: Display user's Google account (name or email)
                     // AC-AUTH-2.2: Indicate Google sync is active
                     loggedInView.style.display = 'block';
@@ -3862,9 +3877,11 @@
 
                     this.updatePendingCount();
                 } else {
+                    console.log('[UI] Showing local only view with sign-in button');
                     // AC-AUTH-2.4: Indicate local-only mode when signed out
                     loggedInView.style.display = 'none';
                     localOnlyView.style.display = 'block';
+                    console.log('[UI] localOnlyView display set to block');
                 }
             },
 
