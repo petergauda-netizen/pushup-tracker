@@ -3403,6 +3403,13 @@
                         // Update local storage with merged data
                         LogManager.save(mergedLogs);
                         console.log('[Sync] Saved merged data to local storage');
+
+                        // Verify what was saved
+                        const verifyLogs = LogManager.getAllLogs();
+                        console.log('[Sync] Verification - logs in storage after save:', verifyLogs.length);
+                        if (verifyLogs.length > 0) {
+                            console.log('[Sync] Sample log from storage:', verifyLogs[0]);
+                        }
                     }
 
                     // Step 2: Upload any new local entries to Google Sheets
