@@ -3715,6 +3715,12 @@
                 const main = document.getElementById('syncStatusMain');
                 const sub = document.getElementById('syncStatusSub');
 
+                // If elements don't exist, skip (old UI removed)
+                if (!container || !icon || !main || !sub) {
+                    console.log('[Sync] Legacy sync status elements not found, skipping updateSyncStatus');
+                    return;
+                }
+
                 // Remove all status classes
                 container.classList.remove('syncing', 'synced', 'error', 'offline');
 
@@ -3746,28 +3752,34 @@
                 const sheetName = document.getElementById('sheetName');
                 const lastSynced = document.getElementById('lastSynced');
 
+                // If legacy elements don't exist, skip (UI has been updated)
+                if (!signInBtn && !syncBtn && !settingsCard) {
+                    console.log('[Sync] Legacy sync UI elements not found, skipping updateSyncUI');
+                    return;
+                }
+
                 if (this.isSignedIn) {
-                    signInBtn.style.display = 'none';
-                    syncBtn.style.display = 'block';
-                    settingsCard.style.display = 'block';
+                    if (signInBtn) signInBtn.style.display = 'none';
+                    if (syncBtn) syncBtn.style.display = 'block';
+                    if (settingsCard) settingsCard.style.display = 'block';
 
-                    connectedAccount.textContent = this.userEmail || '-';
+                    if (connectedAccount) connectedAccount.textContent = this.userEmail || '-';
 
-                    if (this.spreadsheetId) {
+                    if (this.spreadsheetId && sheetName) {
                         const settings = this.getSettings();
                         sheetName.innerHTML = `<a href="https://docs.google.com/spreadsheets/d/${this.spreadsheetId}" target="_blank" style="color: #667eea; text-decoration: none;">Open Sheet ↗</a>`;
 
-                        if (settings && settings.lastSynced) {
+                        if (settings && settings.lastSynced && lastSynced) {
                             const syncDate = new Date(settings.lastSynced);
                             lastSynced.textContent = this.formatRelativeTime(syncDate);
-                        } else {
+                        } else if (lastSynced) {
                             lastSynced.textContent = 'Never';
                         }
                     }
                 } else {
-                    signInBtn.style.display = 'block';
-                    syncBtn.style.display = 'none';
-                    settingsCard.style.display = 'none';
+                    if (signInBtn) signInBtn.style.display = 'block';
+                    if (syncBtn) syncBtn.style.display = 'none';
+                    if (settingsCard) settingsCard.style.display = 'none';
                 }
 
                 this.updatePendingCount();
