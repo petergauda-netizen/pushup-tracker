@@ -2711,18 +2711,33 @@
             // Sign in with Google
             async signIn() {
                 try {
+                    console.log('[Auth] Starting sign-in process...');
+                    console.log('[Auth] GOOGLE_CONFIG:', typeof GOOGLE_CONFIG !== 'undefined' ? 'defined' : 'undefined');
+                    console.log('[Auth] google API:', typeof google !== 'undefined' ? 'loaded' : 'not loaded');
+                    console.log('[Auth] gapi:', typeof gapi !== 'undefined' ? 'loaded' : 'not loaded');
+
                     if (typeof google === 'undefined') {
+                        console.error('[Auth] Google Identity Services not loaded');
                         throw new Error('Google Identity Services not loaded');
                     }
 
+                    if (typeof GOOGLE_CONFIG === 'undefined') {
+                        console.error('[Auth] GOOGLE_CONFIG not defined');
+                        throw new Error('GOOGLE_CONFIG not defined');
+                    }
+
+                    console.log('[Auth] Initializing token client...');
                     const client = google.accounts.oauth2.initTokenClient({
                         client_id: GOOGLE_CONFIG.CLIENT_ID,
                         scope: GOOGLE_CONFIG.SCOPES,
                         callback: async (response) => {
+                            console.log('[Auth] OAuth callback received');
                             if (response.error) {
+                                console.error('[Auth] OAuth error:', response.error);
                                 this.updateSyncStatus('error', 'Sign-in failed', response.error);
                                 return;
                             }
+                            console.log('[Auth] Access token received');
 
                             this.accessToken = response.access_token;
                             // Token expires in 1 hour (3600 seconds)
@@ -2780,10 +2795,14 @@
                         },
                     });
 
+                    console.log('[Auth] Requesting access token...');
                     client.requestAccessToken();
+                    console.log('[Auth] Access token request initiated');
                 } catch (error) {
-                    console.error('Sign-in error:', error);
+                    console.error('[Auth] Sign-in error:', error);
+                    console.error('[Auth] Error details:', error.message, error.stack);
                     this.updateSyncStatus('error', 'Sign-in failed', error.message);
+                    alert('Sign-in failed: ' + error.message);
                 }
             },
 
