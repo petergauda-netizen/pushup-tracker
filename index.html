@@ -3345,6 +3345,11 @@
 
                     // Step 1: Download data from Google Sheets and merge with local
                     const existingRows = await this.getAllRows();
+                    console.log('[Sync] Fetched rows from sheet:', existingRows?.length || 0);
+                    console.log('[Sync] Current userId:', this.userId);
+                    if (existingRows && existingRows.length > 0) {
+                        console.log('[Sync] Sample row:', existingRows[0]);
+                    }
 
                     if (existingRows && existingRows.length > 0) {
                         // Convert cloud rows to log entries, filtering by user ID
@@ -3359,20 +3364,30 @@
                                 };
                             });
 
+                        console.log('[Sync] Cloud logs for this user:', cloudLogs.length);
+                        if (cloudLogs.length > 0) {
+                            console.log('[Sync] Sample cloud log:', cloudLogs[0]);
+                        }
+
                         // Get local data
                         const localLogs = LogManager.getAllLogs();
+                        console.log('[Sync] Local logs before merge:', localLogs.length);
 
                         // Merge cloud and local data
                         const mergedLogs = this.mergeWithConflictResolution(localLogs, cloudLogs);
+                        console.log('[Sync] Merged logs:', mergedLogs.length);
 
                         // Update local storage with merged data
                         LogManager.save(mergedLogs);
+                        console.log('[Sync] Saved merged data to local storage');
                     }
 
                     // Step 2: Upload any new local entries to Google Sheets
                     const logs = LogManager.getAllLogs();
+                    console.log('[Sync] Logs after merge for upload check:', logs.length);
 
                     if (logs.length === 0) {
+                        console.log('[Sync] No logs to sync, finishing');
                         this.updateLastSyncTime();
                         this.updateSyncStatus('synced', `Connected as ${this.userEmail}`, 'All data synced');
                         this.isSyncing = false;
