@@ -2986,9 +2986,12 @@
             // Handle Google Sign-In
             async handleGoogleSignIn() {
                 try {
+                    console.log('[AuthLockScreen] Starting Google sign-in...');
+
                     // Set up a callback for when sign-in completes
                     const originalCallback = GoogleSheetsSync.onSignInComplete;
                     GoogleSheetsSync.onSignInComplete = () => {
+                        console.log('[AuthLockScreen] onSignInComplete callback triggered');
                         // Call original callback if it exists
                         if (originalCallback) {
                             originalCallback();
@@ -2999,8 +3002,9 @@
 
                     // Delegate to GoogleSheetsSync for actual authentication
                     await GoogleSheetsSync.signIn();
+                    console.log('[AuthLockScreen] signIn() call completed');
                 } catch (error) {
-                    console.error('Google sign-in failed:', error);
+                    console.error('[AuthLockScreen] Google sign-in failed:', error);
                     alert('Sign-in failed. Please try again.');
                 }
             },
@@ -3066,6 +3070,7 @@
 
             // Handle Continue button
             handleContinue() {
+                console.log('[AuthLockScreen] Continue button clicked, current auth state:', this.authState);
                 // Hide lock screen and proceed to main app
                 this.hideLockScreen();
 
@@ -4818,16 +4823,22 @@
         // Initialize app
         // Main app initialization (called after auth lock screen or directly if auth already resolved)
         async function continueToApp() {
+            console.log('[continueToApp] Starting app initialization...');
             // Initialize Google Sheets Sync (only if authenticated)
             const authState = localStorage.getItem('pushupTrackerAuthState');
+            console.log('[continueToApp] Auth state from localStorage:', authState);
             if (authState) {
                 const state = JSON.parse(authState);
+                console.log('[continueToApp] Parsed auth state:', state.authState);
                 if (state.authState === 'AUTHENTICATED') {
+                    console.log('[continueToApp] User is authenticated - initializing Google Sheets sync');
                     await GoogleSheetsSync.init();
                 } else {
                     // Local-only mode - don't initialize Google Sheets
-                    console.log('Running in local-only mode');
+                    console.log('[continueToApp] Running in local-only mode - skipping Google Sheets init');
                 }
+            } else {
+                console.log('[continueToApp] No auth state found - skipping Google Sheets init');
             }
 
             const settings = Settings.load();
