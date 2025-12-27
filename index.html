@@ -2986,13 +2986,19 @@
             // Handle Google Sign-In
             async handleGoogleSignIn() {
                 try {
+                    // Set up a callback for when sign-in completes
+                    const originalCallback = GoogleSheetsSync.onSignInComplete;
+                    GoogleSheetsSync.onSignInComplete = () => {
+                        // Call original callback if it exists
+                        if (originalCallback) {
+                            originalCallback();
+                        }
+                        // Update lock screen UI
+                        this.onAuthSuccess();
+                    };
+
                     // Delegate to GoogleSheetsSync for actual authentication
                     await GoogleSheetsSync.signIn();
-
-                    // Check if sign-in was successful
-                    if (GoogleSheetsSync.isSignedIn) {
-                        this.onAuthSuccess();
-                    }
                 } catch (error) {
                     console.error('Google sign-in failed:', error);
                     alert('Sign-in failed. Please try again.');
@@ -3001,6 +3007,7 @@
 
             // Called after successful Google authentication
             onAuthSuccess() {
+                console.log('[AuthLockScreen] onAuthSuccess called - updating UI');
                 // Update UI to show user identity
                 const identityBefore = document.getElementById('authIdentityBefore');
                 const identityAfter = document.getElementById('authIdentityAfter');
@@ -3103,6 +3110,7 @@
             userName: null,
             userPicture: null,
             isSyncing: false,
+            onSignInComplete: null, // Callback for AuthLockScreen integration
 
             // Initialize Google API
             async init() {
@@ -3259,6 +3267,11 @@
                             this.updateUserAccountView(); // AC-AUTH-2.5: Update view on auth state change
 
                             showSuccessMessage('✅ Successfully connected to Google Sheets!');
+
+                            // Trigger callback for AuthLockScreen (if set)
+                            if (typeof this.onSignInComplete === 'function') {
+                                this.onSignInComplete();
+                            }
                         },
                     });
 
