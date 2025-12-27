@@ -5127,28 +5127,78 @@
 
         // Validate log amount
         function validateLogAmount(value) {
-            const num = parseInt(value);
-            return !isNaN(num) && num > 0 && num === parseFloat(value);
+            // Handle null, undefined, empty string
+            if (value === null || value === undefined || value === '') {
+                console.log('Validation failed: empty value');
+                return false;
+            }
+
+            // Convert to string and trim whitespace
+            const trimmedValue = String(value).trim();
+
+            // Check if it's a valid number
+            const num = Number(trimmedValue);
+
+            // Must be a valid number, positive, and an integer
+            if (isNaN(num) || num <= 0 || !Number.isInteger(num)) {
+                console.log('Validation failed:', { value, num, isNaN: isNaN(num), positive: num > 0, integer: Number.isInteger(num) });
+                return false;
+            }
+
+            return true;
         }
 
         // Log push-ups
         function logPushups(amount) {
-            if (!validateLogAmount(amount)) {
-                logError.classList.add('show');
-                return;
+            console.log('logPushups called with amount:', amount);
+
+            try {
+                // Validate the amount
+                if (!validateLogAmount(amount)) {
+                    console.warn('Invalid amount provided to logPushups:', amount);
+                    if (logError) {
+                        logError.classList.add('show');
+                    }
+                    return false;
+                }
+
+                // Hide error message
+                if (logError) {
+                    logError.classList.remove('show');
+                }
+
+                // Convert to integer
+                const amountInt = parseInt(amount, 10);
+                console.log('Adding log with amount:', amountInt);
+
+                // Add the log entry
+                const newLog = LogManager.addLog(amountInt);
+                console.log('Log added successfully:', newLog);
+
+                // Update all UI components
+                console.log('Updating UI components...');
+                updateTodayTotal();
+                updateProgressTracking();
+                updateGamification();
+                updateStatistics();
+                displayLogHistory();
+
+                // Show success message
+                showSuccessMessage(`✅ Logged ${amountInt} push-ups!`);
+
+                // Clear custom input if it was used
+                if (customAmountInput) {
+                    customAmountInput.value = '';
+                }
+
+                console.log('logPushups completed successfully');
+                return true;
+
+            } catch (error) {
+                console.error('Error in logPushups:', error);
+                showSuccessMessage('❌ Error logging push-ups. Please try again.');
+                return false;
             }
-
-            logError.classList.remove('show');
-            LogManager.addLog(amount);
-            updateTodayTotal();
-            updateProgressTracking();
-            updateGamification();
-            updateStatistics();
-            displayLogHistory();
-            showSuccessMessage(`✅ Logged ${amount} push-ups!`);
-
-            // Clear custom input if it was used
-            customAmountInput.value = '';
         }
 
         // Edit log entry
