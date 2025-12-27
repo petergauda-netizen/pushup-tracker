@@ -1792,9 +1792,302 @@
                 height: 250px;
             }
         }
+
+        /* ===== AUTH LOCK SCREEN ===== */
+        /* Full-screen blocking authentication gate */
+
+        .auth-lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1a1f3a 0%, #2d1b3d 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 24px 32px 24px;
+            overflow: hidden;
+        }
+
+        .auth-lock-screen.hidden {
+            display: none;
+        }
+
+        /* App Identity Section */
+        .auth-app-identity {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .auth-app-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+        }
+
+        .auth-app-title {
+            font-size: 2em;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .auth-app-subtitle {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* User Identity Area */
+        .auth-user-identity {
+            text-align: center;
+            margin-top: 40px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+
+        .auth-user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: white;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            object-fit: cover;
+        }
+
+        .auth-user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .auth-user-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .auth-user-status {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+        }
+
+        /* Primary Actions Container */
+        .auth-actions {
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+
+        /* Google Sign-In Button */
+        .auth-btn-google {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: white;
+            color: #3c4043;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 24px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 8px 24px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            min-height: 52px;
+        }
+
+        .auth-btn-google:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 12px 32px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .auth-btn-google:active {
+            transform: translateY(0);
+        }
+
+        .auth-btn-google svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Skip Button */
+        .auth-btn-skip {
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 48px;
+        }
+
+        .auth-btn-skip:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: white;
+        }
+
+        .auth-skip-disclaimer {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+            text-align: center;
+        }
+
+        /* Continue CTA */
+        .auth-btn-continue {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 32px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .auth-btn-continue:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.3);
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.5;
+        }
+
+        .auth-btn-continue:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .auth-btn-continue:not(:disabled):active {
+            transform: translateY(0);
+        }
+
+        /* Desktop Enhancements */
+        @media (min-width: 769px) {
+            .auth-lock-screen {
+                padding: 60px 40px 48px 40px;
+            }
+
+            .auth-app-identity {
+                margin-top: 40px;
+            }
+
+            .auth-app-icon {
+                font-size: 80px;
+                margin-bottom: 20px;
+            }
+
+            .auth-app-title {
+                font-size: 2.5em;
+            }
+
+            .auth-app-subtitle {
+                font-size: 1.1em;
+            }
+
+            .auth-user-identity {
+                margin-top: 60px;
+            }
+
+            .auth-actions {
+                max-width: 380px;
+                margin-bottom: 40px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Auth Lock Screen - First-Launch Authentication Gate -->
+    <div id="authLockScreen" class="auth-lock-screen">
+        <!-- App Identity -->
+        <div class="auth-app-identity">
+            <div class="auth-app-icon">💪</div>
+            <div class="auth-app-title">Pushup Tracker</div>
+            <div class="auth-app-subtitle">Track. Commit. Finish.</div>
+        </div>
+
+        <!-- User Identity Area (Conditional) -->
+        <div id="authUserIdentity" class="auth-user-identity">
+            <!-- Before Login -->
+            <div id="authIdentityBefore">
+                <div class="auth-user-avatar">👤</div>
+                <div class="auth-user-status">Not signed in</div>
+            </div>
+
+            <!-- After Login (hidden by default) -->
+            <div id="authIdentityAfter" style="display: none;">
+                <div class="auth-user-avatar" id="authUserAvatar">
+                    <img id="authUserPicture" src="" alt="Profile" style="display: none;" />
+                    <span id="authUserInitial"></span>
+                </div>
+                <div class="auth-user-name" id="authUserName"></div>
+                <div class="auth-user-status">Signed in with Google</div>
+            </div>
+        </div>
+
+        <!-- Primary Actions -->
+        <div class="auth-actions">
+            <!-- Google Sign-In Button (only visible when not logged in) -->
+            <button id="authBtnGoogle" class="auth-btn-google">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
+                <span>Sign in with Google</span>
+            </button>
+
+            <!-- Skip Button -->
+            <div>
+                <button id="authBtnSkip" class="auth-btn-skip">
+                    Skip for now (Local mode)
+                </button>
+                <div class="auth-skip-disclaimer">Data will stay on this device</div>
+            </div>
+
+            <!-- Continue CTA (Locked until decision) -->
+            <button id="authBtnContinue" class="auth-btn-continue" disabled>
+                Continue →
+            </button>
+        </div>
+    </div>
+
     <!-- Offline Indicator -->
     <div id="offline-indicator">
         <span class="indicator-icon">📡</span>
@@ -2630,6 +2923,172 @@
             }
         };
 
+        // ===== AUTH LOCK SCREEN MANAGER =====
+        // Manages the first-launch authentication gate
+        const AuthLockScreen = {
+            STORAGE_KEY: 'pushupTrackerAuthState',
+            authState: 'UNINITIALIZED', // UNINITIALIZED -> AUTH_REQUIRED -> AUTHENTICATED/LOCAL_ONLY
+            authDecisionMade: false,
+
+            // Check if user has previously made an auth decision
+            checkAuthState() {
+                const savedState = localStorage.getItem(this.STORAGE_KEY);
+                if (savedState) {
+                    const state = JSON.parse(savedState);
+                    this.authState = state.authState || 'UNINITIALIZED';
+                    this.authDecisionMade = state.authDecisionMade || false;
+                    return this.authState !== 'UNINITIALIZED';
+                }
+                return false;
+            },
+
+            // Save auth state to localStorage
+            saveAuthState(authState, mode) {
+                this.authState = authState;
+                this.authDecisionMade = true;
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify({
+                    authState: authState,
+                    authDecisionMade: true,
+                    mode: mode,
+                    timestamp: new Date().toISOString()
+                }));
+            },
+
+            // Initialize the lock screen
+            init() {
+                // Check if auth decision was already made
+                const hasAuthState = this.checkAuthState();
+
+                if (hasAuthState) {
+                    // User has already made a decision - hide lock screen
+                    this.hideLockScreen();
+                    return false; // Don't show lock screen
+                }
+
+                // First launch - show lock screen and set up event listeners
+                this.authState = 'AUTH_REQUIRED';
+                this.setupEventListeners();
+                this.showLockScreen();
+                return true; // Lock screen is active
+            },
+
+            // Set up button event listeners
+            setupEventListeners() {
+                const googleBtn = document.getElementById('authBtnGoogle');
+                const skipBtn = document.getElementById('authBtnSkip');
+                const continueBtn = document.getElementById('authBtnContinue');
+
+                googleBtn.addEventListener('click', () => this.handleGoogleSignIn());
+                skipBtn.addEventListener('click', () => this.handleSkip());
+                continueBtn.addEventListener('click', () => this.handleContinue());
+            },
+
+            // Handle Google Sign-In
+            async handleGoogleSignIn() {
+                try {
+                    // Delegate to GoogleSheetsSync for actual authentication
+                    await GoogleSheetsSync.signIn();
+
+                    // Check if sign-in was successful
+                    if (GoogleSheetsSync.isSignedIn) {
+                        this.onAuthSuccess();
+                    }
+                } catch (error) {
+                    console.error('Google sign-in failed:', error);
+                    alert('Sign-in failed. Please try again.');
+                }
+            },
+
+            // Called after successful Google authentication
+            onAuthSuccess() {
+                // Update UI to show user identity
+                const identityBefore = document.getElementById('authIdentityBefore');
+                const identityAfter = document.getElementById('authIdentityAfter');
+                const googleBtn = document.getElementById('authBtnGoogle');
+                const continueBtn = document.getElementById('authBtnContinue');
+
+                // Hide "not signed in" state
+                identityBefore.style.display = 'none';
+
+                // Show signed-in user info
+                const userName = document.getElementById('authUserName');
+                const userPicture = document.getElementById('authUserPicture');
+                const userInitial = document.getElementById('authUserInitial');
+
+                userName.textContent = GoogleSheetsSync.userName || GoogleSheetsSync.userEmail;
+
+                if (GoogleSheetsSync.userPicture) {
+                    userPicture.src = GoogleSheetsSync.userPicture;
+                    userPicture.style.display = 'block';
+                    userInitial.style.display = 'none';
+                } else if (GoogleSheetsSync.userName) {
+                    userInitial.textContent = GoogleSheetsSync.userName.charAt(0).toUpperCase();
+                    userInitial.style.display = 'block';
+                    userPicture.style.display = 'none';
+                }
+
+                identityAfter.style.display = 'flex';
+                identityAfter.style.flexDirection = 'column';
+                identityAfter.style.alignItems = 'center';
+
+                // Hide Google sign-in button
+                googleBtn.style.display = 'none';
+
+                // Enable Continue button
+                continueBtn.disabled = false;
+
+                // Save auth state
+                this.saveAuthState('AUTHENTICATED', 'GOOGLE_SHEETS');
+            },
+
+            // Handle Skip (Local Mode)
+            handleSkip() {
+                const continueBtn = document.getElementById('authBtnContinue');
+                const googleBtn = document.getElementById('authBtnGoogle');
+
+                // Enable Continue button
+                continueBtn.disabled = false;
+
+                // Optionally hide Google button to confirm choice
+                googleBtn.disabled = true;
+                googleBtn.style.opacity = '0.4';
+
+                // Save auth state
+                this.saveAuthState('LOCAL_ONLY', 'LOCAL_ONLY');
+            },
+
+            // Handle Continue button
+            handleContinue() {
+                // Hide lock screen and proceed to main app
+                this.hideLockScreen();
+
+                // Initialize the main app
+                // The init() function will handle routing based on whether settings exist
+                if (window.continueToApp) {
+                    window.continueToApp();
+                }
+            },
+
+            // Show lock screen
+            showLockScreen() {
+                const lockScreen = document.getElementById('authLockScreen');
+                lockScreen.classList.remove('hidden');
+            },
+
+            // Hide lock screen
+            hideLockScreen() {
+                const lockScreen = document.getElementById('authLockScreen');
+                lockScreen.classList.add('hidden');
+            },
+
+            // Reset auth state (for testing or sign-out)
+            resetAuthState() {
+                localStorage.removeItem(this.STORAGE_KEY);
+                this.authState = 'UNINITIALIZED';
+                this.authDecisionMade = false;
+            }
+        };
+
         // Google Sheets Sync Manager
         const GoogleSheetsSync = {
             STORAGE_KEY: 'pushupTrackerSyncSettings',
@@ -2841,10 +3300,16 @@
                 this.userPicture = null;
                 this.isSignedIn = false;
                 localStorage.removeItem(this.STORAGE_KEY);
+
+                // AC-LOGIN-1.22: Reset auth state so lock screen appears on next launch
+                if (typeof AuthLockScreen !== 'undefined') {
+                    AuthLockScreen.resetAuthState();
+                }
+
                 this.updateSyncStatus('offline', 'Not connected', 'Connect to Google Sheets to back up your data');
                 this.updateSyncUI();
                 this.updateUserAccountView(); // AC-AUTH-2.5: Update view on auth state change
-                showSuccessMessage('✅ Disconnected from Google Sheets');
+                showSuccessMessage('✅ Disconnected from Google Sheets. You will see the login screen on next launch.');
             },
 
             // Check if access token is expired
@@ -4338,9 +4803,19 @@
         }
 
         // Initialize app
-        async function init() {
-            // Initialize Google Sheets Sync
-            await GoogleSheetsSync.init();
+        // Main app initialization (called after auth lock screen or directly if auth already resolved)
+        async function continueToApp() {
+            // Initialize Google Sheets Sync (only if authenticated)
+            const authState = localStorage.getItem('pushupTrackerAuthState');
+            if (authState) {
+                const state = JSON.parse(authState);
+                if (state.authState === 'AUTHENTICATED') {
+                    await GoogleSheetsSync.init();
+                } else {
+                    // Local-only mode - don't initialize Google Sheets
+                    console.log('Running in local-only mode');
+                }
+            }
 
             const settings = Settings.load();
             const settingsEditCard = document.getElementById('settingsEditCard');
@@ -4348,7 +4823,7 @@
             if (settings) {
                 // AC-AUTH-2.6: Show user account container
                 document.getElementById('userAccountContainer')?.classList.remove('hidden');
-                // Sync on app open
+                // Sync on app open (only if authenticated)
                 if (GoogleSheetsSync.isSignedIn) {
                     await GoogleSheetsSync.performFullSync();
                 }
@@ -4396,6 +4871,24 @@
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
             endDateInput.min = tomorrow.toISOString().split('T')[0];
+        }
+
+        // Global reference for AuthLockScreen to call
+        window.continueToApp = continueToApp;
+
+        async function init() {
+            // AC-LOGIN-1.20: Check auth lock screen state BEFORE initializing anything
+            const lockScreenActive = AuthLockScreen.init();
+
+            if (lockScreenActive) {
+                // Lock screen is showing - wait for user decision
+                // continueToApp() will be called when user taps Continue
+                console.log('Auth lock screen active - waiting for user decision');
+                return;
+            }
+
+            // Auth decision already made - proceed to app
+            await continueToApp();
         }
 
         // Validation
